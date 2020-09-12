@@ -32,7 +32,7 @@ def get_images(count = 0):
 
         images_to_parse = [
             {
-                'url': images[i].get_attribute('href'),
+                'url': images[i].get_attribute('href').replace('/1000/','/full/'),
                 'name': str(i + count)
             }
             for i in range(image_count)
