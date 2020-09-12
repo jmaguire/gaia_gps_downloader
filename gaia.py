@@ -4,6 +4,9 @@ import urllib.request
 import time
 import os
 
+GAIA_URL = "https://www.gaiagps.com/datasummary/photos/"
+GAIA_PHOTO_API = "https://www.gaiagps.com/api/objects/photo/"
+
 def save_images(images_to_parse):
     if not images_to_parse:
         print('All images processed')
@@ -20,7 +23,7 @@ def save_images(images_to_parse):
 
 def get_images(count = 0):
     images = driver.find_elements_by_xpath(
-        '//a[starts-with(@href, "https://www.gaiagps.com/api/objects/photo/")]')
+        "//a[starts-with(@href, '" + GAIA_PHOTO_API + "')]")
     if not images:
         'No images on page'
         return
@@ -55,7 +58,7 @@ def get_images(count = 0):
 
 
 driver = webdriver.Firefox()
-driver.get("https://www.gaiagps.com/datasummary/photos/")
+driver.get(GAIA_URL)
 
 email_value = input('Email: ')
 password_value = input('Password: ')
@@ -69,7 +72,7 @@ driver.find_element_by_xpath("//button[@type='submit']").click()
 
 time.sleep(2)
 window_before = driver.window_handles[0]
-driver.execute_script("window.open('https://www.gaiagps.com/datasummary/photos/', 'new window')")
+driver.execute_script("window.open('" + GAIA_URL + "', 'new window')")
 window_after = driver.window_handles[1]
 driver.switch_to.window(window_before)
 time.sleep(2)
